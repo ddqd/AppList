@@ -6,25 +6,27 @@ import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
  * Created by dgureev on 9/23/14.
  */
-public class AppInfo {
-    public String name;
-    public String packageName;
-    public String versionName;
-    public int versionCode;
-    public Drawable icon;
+class AppInfo implements Comparable<AppInfo>{
+    String name;
+    String versionName;
+    Drawable icon;
+    private String packageName;
+    private int versionCode;
 
-    public static List<AppInfo> getAppInfoList(Activity a) {
+    static List<AppInfo> getAppInfoList(Activity a) {
         ArrayList<AppInfo> appInfoList = new ArrayList<AppInfo>();
         List<PackageInfo> packs = a.getPackageManager().getInstalledPackages(PackageManager.COMPONENT_ENABLED_STATE_DEFAULT);
-        for(int i=0;i<packs.size();i++) {
+        final int size = packs.size();
+        for (int i = 0; i < size; i++) {
             PackageInfo p = packs.get(i);
             if (p.versionName == null) {
-                continue ;
+                continue;
             }
             AppInfo newInfo = new AppInfo();
             newInfo.name = p.applicationInfo.loadLabel(a.getPackageManager()).toString();
@@ -34,7 +36,14 @@ public class AppInfo {
             newInfo.icon = p.applicationInfo.loadIcon(a.getPackageManager());
             appInfoList.add(newInfo);
         }
+
+        Collections.sort(appInfoList);
         return appInfoList;
+    }
+
+    @Override
+    public int compareTo(AppInfo appInfo) {
+        return name.compareTo(appInfo.name);
     }
 }
 

@@ -13,13 +13,14 @@ import java.util.List;
 /**
  * Created by dgureev on 9/23/14.
  */
-public class AppListAdapter extends ArrayAdapter {
+class AppListAdapter extends ArrayAdapter<AppInfo> {
     private List<AppInfo> appList;
     private LayoutInflater inflater;
-    public AppListAdapter(Context context, int resource, List objects) {
+
+    AppListAdapter(Context context, int resource, List<AppInfo> objects) {
         super(context, resource, objects);
         this.appList = objects;
-        inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        inflater = LayoutInflater.from(context);
     }
 
     @Override
@@ -28,25 +29,25 @@ public class AppListAdapter extends ArrayAdapter {
     }
 
     @Override
-    public Object getItem(int i) {
+    public AppInfo getItem(int i) {
         return appList.get(i);
     }
 
     @Override
     public long getItemId(int i) {
-        return 0;
+        return i;
     }
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         View vi = view;
-        if(view==null)
+        if (view == null)
             vi = inflater.inflate(R.layout.app_info_item, null);
         AppInfo appInfo = appList.get(i);
-        TextView appName = (TextView)vi.findViewById(R.id.appName);
-        TextView appVersion = (TextView)vi.findViewById(R.id.appVersion);
+        TextView appName = vi.findViewById(R.id.appName);
+        TextView appVersion = vi.findViewById(R.id.appVersion);
         appVersion.setText(appInfo.versionName);
-        ImageView appIcon = (ImageView)vi.findViewById(R.id.appIcon);
+        ImageView appIcon = vi.findViewById(R.id.appIcon);
         appIcon.setImageDrawable(appInfo.icon);
         appName.setText(appInfo.name);
         return vi;
