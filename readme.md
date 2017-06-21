@@ -1,7 +1,7 @@
-###Android installed applicetion list
-----
+### Android installed application list
+
+[![Build Status](https://travis-ci.org/ddqd/AppList.svg?branch=master)](https://travis-ci.org/ddqd/AppList)
 
 
-| screen | 
 | -------- |
 |![](https://github.com/ddqd/AppList/blob/master/img/screenshot.png)|
