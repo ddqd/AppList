@@ -1,5 +1,6 @@
 package im.dema.applist;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -19,6 +20,7 @@ class AppInfo implements Comparable<AppInfo>{
     private String packageName;
     private int versionCode;
 
+    @SuppressLint("WrongConstant")
     static List<AppInfo> getAppInfoList(Activity a) {
         ArrayList<AppInfo> appInfoList = new ArrayList<AppInfo>();
         List<PackageInfo> packs = a.getPackageManager().getInstalledPackages(PackageManager.COMPONENT_ENABLED_STATE_DEFAULT);
